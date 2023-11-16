@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- create_site.html -->
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#siteCreationModal">
+    Create Site
+</button>
+
+<!-- Site Creation Modal -->
+<div class="modal" id="siteCreationModal" tabindex="-1" role="dialog" aria-labelledby="siteCreationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="siteCreationModalLabel">Create Site</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Include the form here -->
+                <form method="post" action="{% url 'create_site' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

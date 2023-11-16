@@ -1,0 +1,192 @@
+{% extends 'main/main.html' %}
+
+{% block content %}
+    <div class="page-content main-content page-container" id="page-content">
+        <div class="padding">
+            <div class="row container d-flex justify-content-center">
+                <div class="col-md-12">
+                    <div class="card user-card-full">
+                        <div class="row m-l-0 m-r-0">
+                            <div class="col-sm-4 bg-c-lite-green user-profile">
+                                <div class="card-block text-center text-white">
+                                    <div class="m-b-25">
+                                        <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image">
+                                    </div>
+                                    <h4 class="text-white">{{ first_name }} {{ last_name }}</h4>
+                                    <i class="mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                    <ul class="navbar-nav mr-auto">
+                                        <div class="dropdown">
+                                          <button class="btn btn-outline-light btn-secondary dropdown-toggle dropdown-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Connect
+                                          </button>
+                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="{% url 'main' %}">All</a>
+                                            {% for category in categories %}
+                                            <a class="dropdown-item" href="{% url 'main' %}?category={{ category.name }}">{{ category.name }}</a>
+                                            {% endfor %}
+                                          </div>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="card-block">
+                                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <p class="m-b-10 f-w-600">Email</p>
+                                            <h6 class="text-muted f-w-400">{{ user.email }}</h6>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p class="m-b-10 f-w-600">Phone</p>
+                                                <div id="existing-phone">
+                                                    {% if user.userauth.phone %}
+                                                        <h6 class="text-muted f-w-400">{{ user.userauth.phone }}</h6>
+                                                        <div class="info-with-edit">
+                                                            <button id="edit-phone-button" class="btn btn-outline-light user-button">
+                                                                <img src="/static/images/edit.png" alt="User" class="edit-icon"></button>
+                                                        </div>
+                                                    {% else %}
+                                                        <form method="POST" action="{% url 'save_phone' %}">
+                                                            {% csrf_token %}
+                                                            <input type="text" id="id_phone" name="phone" class="form-control" required />
+                                                            <button type="submit" class="btn btn-primary mt-2">Save</button>
+                                                        </form>
+                                                    {% endif %}
+                                                </div>
+
+                                            <div id="edit-phone" style="display: none;">
+                                                <form method="POST" action="{% url 'save_phone' %}">
+                                                    {% csrf_token %}
+                                                    <input type="text" id="id_phone" name="phone" class="form-control" required />
+                                                    <button type="submit" class="btn btn-outline-light mt-2">Save</button>
+                                                    <button type="button" id="cancel-edit-button" class="btn btn-outline-light mt-2">Cancel</button>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p class="m-b-10 f-w-600">City</p>
+                                                <div id="existing-city">
+                                                    {% if user.userauth.city %}
+                                                        <h6 class="text-muted f-w-400">{{ user.userauth.city }}</h6>
+                                                        <div class="info-with-edit">
+                                                            <button id="edit-city-button" class="btn btn-outline-light user-button">
+                                                                <img src="/static/images/edit.png" alt="User" class="edit-icon"></button>
+                                                        </div>
+                                                    {% else %}
+                                                        <form method="POST" action="{% url 'save_city' %}">
+                                                            {% csrf_token %}
+                                                            <input type="text" id="id_city" name="city" class="form-control" required />
+                                                            <button type="submit" class="btn btn-primary mt-2">Save</button>
+                                                        </form>
+                                                    {% endif %}
+                                                </div>
+                                            <div id="edit-city" style="display: none;">
+                                                <form method="POST" action="{% url 'save_city' %}">
+                                                    {% csrf_token %}
+                                                    <input type="text" id="id_city" name="city" class="form-control" required />
+                                                    <button type="submit" class="btn btn-outline-light mt-2">Save</button>
+                                                    <button type="button" id="cancel-edit-city" class="btn btn-outline-light mt-2">Cancel</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p class="m-b-10 f-w-600">Address</p>
+                                                <div id="existing-address">
+                                                {% if user.userauth.address %}
+                                                    <h6 class="text-muted f-w-400">{{ user.userauth.address }}</h6>
+                                                    <div class="info-with-edit">
+                                                        <button id="edit-address-button" class="btn btn-outline-light user-button">
+                                                            <img src="/static/images/edit.png" alt="User" class="edit-icon"></button>
+                                                    </div>
+                                                {% else %}
+                                                    <form method="POST" action="{% url 'save_address' %}">
+                                                        {% csrf_token %}
+                                                        <input type="text" id="id_address" name="address" class="form-control" required />
+                                                        <button type="submit" class="btn btn-primary mt-2">Save</button>
+                                                    </form>
+                                                {% endif %}
+                                            </div>
+                                            <div id="edit-address" style="display: none;">
+                                                <form method="POST" action="{% url 'save_address' %}">
+                                                    {% csrf_token %}
+                                                    <input type="text" id="id_address" name="address" class="form-control" required />
+                                                    <button type="submit" class="btn btn-outline-light mt-2">Save</button>
+                                                    <button type="button" id="cancel-edit-address" class="btn btn-outline-light mt-2">Cancel</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% for site in user_sites %}
+                                    <p>{{ site.name }} - {{ site.url }}</p>
+                                {% endfor %}
+                                    <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Statistical Data</h6>
+                                    <div class="row">
+                                        {% for order_item_status in order_items_with_status %}
+                                            <p>Order ID: {{ order_item_status.order_item.order.id }} Variant: {{ order_item_status.variant }} Paid: {% if order_item_status.is_paid_and_ready %}<img src="/static/images/icon-yes.svg" alt="True">{% else %}<img src="/static/images/icon-no.svg" alt="False">{% endif %} Sent:{% if order_item_status.is_completed %}<img src="/static/images/icon-yes.svg">{% else %}<img src="/static/images/icon-no.svg" alt="False">{% endif %}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const existingPhoneDiv = document.getElementById("existing-phone");
+        const editPhoneDiv = document.getElementById("edit-phone");
+
+        const editPhoneButton = document.getElementById("edit-phone-button");
+        const cancelEditButton = document.getElementById("cancel-edit-button");
+
+        const existingCityDiv = document.getElementById("existing-city");
+        const editCityDiv = document.getElementById("edit-city");
+
+        const existingAddressDiv = document.getElementById("existing-address");
+        const editAddressDiv = document.getElementById("edit-address");
+
+        const editCityButton = document.getElementById("edit-city-button");
+        const cancelEditCityButton = document.getElementById("cancel-edit-city");
+
+        const editAddressButton = document.getElementById("edit-address-button");
+        const cancelEditAddressButton = document.getElementById("cancel-edit-address");
+
+
+
+        editPhoneButton.addEventListener("click", function () {
+            existingPhoneDiv.style.display = "none";
+            editPhoneDiv.style.display = "block";
+        });
+
+        cancelEditButton.addEventListener("click", function () {
+            existingPhoneDiv.style.display = "block";
+            editPhoneDiv.style.display = "none";
+        });
+
+        editCityButton.addEventListener("click", function () {
+            existingCityDiv.style.display = "none";
+            editCityDiv.style.display = "block";
+        });
+
+        cancelEditCityButton.addEventListener("click", function () {
+            existingCityDiv.style.display = "block";
+            editCityDiv.style.display = "none";
+        });
+
+        editAddressButton.addEventListener("click", function () {
+            existingAddressDiv.style.display = "none";
+            editAddressDiv.style.display = "block";
+        });
+
+        cancelEditAddressButton.addEventListener("click", function () {
+            existingAddressDiv.style.display = "block";
+            editAddressDiv.style.display = "none";
+        });
+    });
+</script>
+
+{% endblock content %}
