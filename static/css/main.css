@@ -168,6 +168,11 @@ h1,h2,h3,h4,h5,h6{
   background-color: rgb(255, 255, 255); /* Set the color for when the button is hovered */
 }
 
+.scrollable-menu {
+    max-height: 200px; /* You can adjust the max height based on your design */
+    overflow-y: auto;
+}
+
 
 .row-image{
 	width: 100px;

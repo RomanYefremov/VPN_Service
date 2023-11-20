@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import proxy_site
 
 urlpatterns = [
     path('', views.personal_area, name='main'),
@@ -10,4 +11,7 @@ urlpatterns = [
     path('save_address/', views.save_address, name='save_address'),
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
+    path('create-site/', views.create_site, name='create_site'),
+    # path('dashboard/', views.dashboard, name='dashboard'),
+    path('<str:site_name>/<path:path>', proxy_site, name='proxy_site'),
 ]

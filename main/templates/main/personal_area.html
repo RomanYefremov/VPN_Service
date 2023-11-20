@@ -19,12 +19,18 @@
                                           <button class="btn btn-outline-light btn-secondary dropdown-toggle dropdown-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Connect
                                           </button>
-                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="{% url 'main' %}">All</a>
-                                            {% for category in categories %}
-                                            <a class="dropdown-item" href="{% url 'main' %}?category={{ category.name }}">{{ category.name }}</a>
-                                            {% endfor %}
-                                          </div>
+                                        <a href="{% url 'create_site' %}"><button class="btn-outline-light btn-secondary btn">Create a Web</button></a>
+                                        <a href="{% url 'create_site' %}"><button class="btn-outline-light btn-secondary btn">Delete a Web</button></a>
+
+                                          <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">user_site.url
+                                                {% for user_site in user_sites %}
+                                                    <a class="dropdown-item" href="{% url 'proxy_site' site_name=user_site.name path=user_site.url %}">
+                                                        {{ user_site.name }}
+                                                    </a>
+                                                {% endfor %}
+
+
+                                            </div>
                                         </div>
                                     </ul>
                                 </div>
@@ -118,14 +124,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                {% for site in user_sites %}
-                                    <p>{{ site.name }} - {{ site.url }}</p>
-                                {% endfor %}
+
                                     <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Statistical Data</h6>
                                     <div class="row">
-                                        {% for order_item_status in order_items_with_status %}
-                                            <p>Order ID: {{ order_item_status.order_item.order.id }} Variant: {{ order_item_status.variant }} Paid: {% if order_item_status.is_paid_and_ready %}<img src="/static/images/icon-yes.svg" alt="True">{% else %}<img src="/static/images/icon-no.svg" alt="False">{% endif %} Sent:{% if order_item_status.is_completed %}<img src="/static/images/icon-yes.svg">{% else %}<img src="/static/images/icon-no.svg" alt="False">{% endif %}</p>
-                                        {% endfor %}
+
+                                        <p>Site Name: {{ site.name }}</p>
+                                            <p>Transitions Count: {{ site.transitions_count }}</p>
+                                            <p>Data Sent: {{ site.data_sent }} bytes</p>
+                                            <p>Data Received: {{ site.data_received }} bytes</p>
+
                                     </div>
                                 </div>
                             </div>

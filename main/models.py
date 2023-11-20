@@ -22,6 +22,18 @@ class UserAuth(models.Model):
         return f"{self.first_name} {self.last_name}" if self.first_name and self.last_name else str(self.user.username)
 
 
+class Site(models.Model):
+    user_auth = models.ForeignKey(UserAuth, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    url = models.URLField()
+    transitions_count = models.PositiveIntegerField(default=0)
+    data_sent = models.PositiveIntegerField(default=0)
+    data_received = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.name
+
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=200)
