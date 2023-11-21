@@ -20,7 +20,7 @@
                                             Connect
                                           </button>
                                         <a href="{% url 'create_site' %}"><button class="btn-outline-light btn-secondary btn">Create a Web</button></a>
-                                        <a href="{% url 'create_site' %}"><button class="btn-outline-light btn-secondary btn">Delete a Web</button></a>
+                                        <a href="{% url 'dashboard' %}"><button class="btn-outline-light btn-secondary btn">Delete a Web</button></a>
 
                                           <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">user_site.url
                                                 {% for user_site in user_sites %}
@@ -127,11 +127,17 @@
 
                                     <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Statistical Data</h6>
                                     <div class="row">
+                                        {% for site in user_sites %}
+                                            <li>
+                                                <strong>{{ site.name }}</strong><br>
+                                                URL: <a href="{{ site.url }}">{{ site.url }}</a><br>
+                                                Transitions Count: {{ site.transitions_count }}<br>
+                                                Data Sent: {{ site.data_sent }}<br>
+                                                Data Received: {{ site.data_received }}<br>
+                                            </li>
+                                        {% endfor %}
 
-                                        <p>Site Name: {{ site.name }}</p>
-                                            <p>Transitions Count: {{ site.transitions_count }}</p>
-                                            <p>Data Sent: {{ site.data_sent }} bytes</p>
-                                            <p>Data Received: {{ site.data_received }} bytes</p>
+
 
                                     </div>
                                 </div>

@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main/main.html' %}
 
-</body>
-</html>
+{% block content %}
+    <div class="row main-content d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-50">
+            <div class="card bg-form text-white" style="border-radius: 4rem;">
+              <div class="card-body p-3 text-center">
+                <div class="mb-3 mt-2 pb-3">
+                <h4>{{ user.username }}'s Dashboard</h4>
+
+                    <h4>Manage Your Sites</h4>
+                    {% for site in user_sites %}
+                        <li>
+                            <strong>{{ site.name }}</strong><br>
+                            URL: <a href="{{ site.url }}">{{ site.url }}</a><br>
+                            Transitions Count: {{ site.transitions_count }}<br>
+                            Data Sent: {{ site.data_sent }}<br>
+                            Data Received: {{ site.data_received }}<br>
+
+                            <!-- Form to delete the site -->
+                            <form method="post" action="{% url 'dashboard' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="site_id" value="{{ site.id }}">
+                                <button class="btn btn-outline-light btn-lg" type="submit">Delete Site</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

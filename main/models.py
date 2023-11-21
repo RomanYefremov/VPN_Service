@@ -11,11 +11,11 @@ from django.dispatch import receiver
 
 class UserAuth(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=50, null=True)  # New field for first name
-    last_name = models.CharField(max_length=50, null=True)  # New field for last name
+    first_name = models.CharField(max_length=50, null=True)
+    last_name = models.CharField(max_length=50, null=True)
     email = models.CharField(max_length=200)
-    phone = models.CharField(max_length=20)  # Added phone field
-    city = models.CharField(max_length=100)  # New field for city
+    phone = models.CharField(max_length=20)
+    city = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
 
     def __str__(self):
