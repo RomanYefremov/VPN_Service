@@ -29,7 +29,7 @@ go to create a site, there you need to give a name to your site and give a link 
 for example https://ru.wikipedia.org/wiki/
 after which, in your account, click on connect, and according to the name you gave, connect
 
-#Contributing
+# Contributing
 If you'd like to contribute, please follow these steps:
 
 1.Fork the repository on GitHub.
