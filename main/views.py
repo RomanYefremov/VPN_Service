@@ -24,7 +24,7 @@ def create_site(request):
             site = form.save(commit=False)
             site.user_auth = user_auth
             site.save()
-            return redirect('personal_area')  # Adjust the URL name as needed
+            return redirect('personal_area')
     else:
         form = SiteForm()
 
